@@ -6,7 +6,7 @@ import { useEventStore } from "@/providers/EventStoreProvider";
 
 interface EventFormProps {
   selectedDate: string;
-  activeEvent: TEvent | null; // Null = Add Mode, Object = Edit Mode
+  activeEvent: TEvent | null; // Null = Add Mode; Object = Edit Mode
   onClose: () => void;
 }
 

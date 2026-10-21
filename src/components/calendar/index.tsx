@@ -43,30 +43,30 @@ export default function Calendar() {
   };
 
   const openEditModal = (e: React.MouseEvent, event: TEvent) => {
-    e.stopPropagation(); // Stops calendar cell from opening an "Add Event" modal
-    setSelectedDateStr(event.date);
+    e.stopPropagation(); // Stops calendar cell from opening "Add Event" modal
+    setSelectedDateStr(event.date ?? "");
     setActiveEvent(event);
     setIsModalOpen(true);
   };
 
   const calendarCells = [];
 
-  // 1. Structural padding days
+  // empty days for the first week of the month
   for (let i = 0; i < firstDayOfMonth; i++) {
     calendarCells.push(<div key={i} className="bg-gray-800 border border-gray-700 min-h-[120px]" />);
   }
 
-  // 2. Main active calendar month days
+  // active days of the month
   for (let day = 1; day <= daysInMonth; day++) {
     const dayStr = String(day).padStart(2, "0");
     const monthStr = String(month + 1).padStart(2, "0");
     const dateKey = `${year}-${monthStr}-${dayStr}`;
 
-    // Filter events pulling exclusively through Zustand state selector
+    // Filter events pulling exclusively through zustand state selector
     const dayEvents = isHydrated
       ? storeEvents
-          .filter((e) => e.date === dateKey)
-          .sort((a, b) => a.startTime.localeCompare(b.startTime))
+          .filter((e) => e?.date === dateKey)
+          .sort((a, b) => a?.startTime.localeCompare(b?.startTime))
       : [];
 
     calendarCells.push(

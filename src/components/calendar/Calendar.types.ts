@@ -1,12 +1,8 @@
 export interface TEvent {
-  events?: TData[];
-}
-
-export interface TData {
   id: string;
   type: string;
-  name: string;
-  startDate: string;
-  endDate: string;
+  title: string;
+  startTime: string;
+  endTime: string;
   date?: string;
 }
