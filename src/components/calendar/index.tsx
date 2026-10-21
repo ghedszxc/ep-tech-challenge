@@ -5,7 +5,11 @@ import { TEvent } from "./Calendar.types";
 import { useEventStore } from "@/providers/EventStoreProvider";
 import EventForm from "./EventForm";
 
-export default function Calendar() {
+interface CalendarProps {
+  initialDate: Date;
+}
+
+export default function Calendar({ initialDate }: CalendarProps) {
   const storeEvents = useEventStore((state) => state.events);
   
   // Hydration handling for Zustand's localstorage persistence in Next.js SSR
@@ -14,7 +18,7 @@ export default function Calendar() {
     setIsHydrated(true);
   }, []);
 
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(initialDate);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDateStr, setSelectedDateStr] = useState("");
   const [activeEvent, setActiveEvent] = useState<TEvent | null>(null);
